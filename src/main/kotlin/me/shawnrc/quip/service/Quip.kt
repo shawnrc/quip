@@ -97,5 +97,5 @@ fun main(args: Array<String>) {
 
 object Quip {
   const val API_BASE = "/api/v1"
-  val LOG: Logger = LoggerFactory.getLogger(Quip::class.java)
+  val LOG: Logger = LoggerFactory.getLogger(this::class.java)
 }
