@@ -8,6 +8,8 @@ import me.shawnrc.quip.core.exception.ActionForbiddenException
 import me.shawnrc.quip.core.exception.NotFoundException
 import me.shawnrc.quip.data.dao.MessageDao
 import me.shawnrc.quip.data.dao.QuoteDao
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.sql.SQLIntegrityConstraintViolationException
 
 class QuoteManager(
@@ -17,6 +19,7 @@ class QuoteManager(
 
   fun create(quoteCore: QuoteCore, createdBy: Int): Quote {
     val newId = quoteDao.create(System.currentTimeMillis(), createdBy)
+    LOG.info("created new quote $newId")
     val messages = quoteCore.messages.mapIndexed {
       index, core -> Message(
         id = newId,
@@ -24,6 +27,7 @@ class QuoteManager(
         messageCore = core)
     }
     messageDao.insert(newId, messages)
+    LOG.info("created ${messages.size} new messages for quote $newId")
     return getById(newId)
   }
 
@@ -34,9 +38,10 @@ class QuoteManager(
   fun getById(id: Int): Quote {
     val shouldBeOneQuote = rowsToQuotes(quoteDao.getById(id))
     if (shouldBeOneQuote.isEmpty()) {
-      throw NotFoundException("could not find quote for id [$id]")
+      throw NotFoundException("could not find quote for id $id")
     } else if (shouldBeOneQuote.size > 1) {
-      throw SQLIntegrityConstraintViolationException("invalid state! more than one quote for id [$id]!")
+      LOG.error("invalid state! more than one quote for id $id!")
+      throw SQLIntegrityConstraintViolationException()
     }
     return shouldBeOneQuote.first()
   }
@@ -66,5 +71,10 @@ class QuoteManager(
       rowMap.getValue(row.id).messages.add(message)
     }
     return rowMap.values.map { it }
+  }
+
+  companion object {
+    @JvmStatic
+    private val LOG: Logger = LoggerFactory.getLogger(this::class.java)
   }
 }
