@@ -4,7 +4,7 @@ server:
     port: 9000
 
 logging:
-  level: DEBUG
+  level: INFO
   loggers:
     me.shawnrc.quip: DEBUG
 
@@ -13,5 +13,5 @@ database:
   url: jdbc:mysql://localhost/Quip
   user: root
   properties:
-    serverTimezone: UTC
+    serverTimezone: EDT
     nullNamePatternMatchesAll: true2

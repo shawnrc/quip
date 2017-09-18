@@ -1,5 +1,5 @@
 package me.shawnrc.quip.core.exception
 
-class ActionForbiddenException(override val message: String?) : HttpStatusException(message) {
-  override val statusCode = 403
-}
+import javax.ws.rs.core.Response
+
+class ActionForbiddenException(message: String) : NonCatastrophicException(message, Response.Status.FORBIDDEN)

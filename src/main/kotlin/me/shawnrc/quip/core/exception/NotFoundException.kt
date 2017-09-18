@@ -1,6 +1,5 @@
 package me.shawnrc.quip.core.exception
 
-class NotFoundException(override val message: String?) : HttpStatusException(message) {
-  override val statusCode = 404
-}
+import javax.ws.rs.core.Response
 
+class NotFoundException(message: String) : NonCatastrophicException(message, Response.Status.NOT_FOUND)
