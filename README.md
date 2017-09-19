@@ -3,14 +3,22 @@ Quip
 
 quotefault sucks
 
-also naming is hard
+also naming is hard.
 
 `TODO`:
 
-- [ ] fix build system
+- [ ] unfuck my custom exceptions
 - [ ] extract hardcoded config stuff to config file
-- [ ] swap out web framework
+- [ ] keycloak support
+  - allow this to be optional... somehow
 - [ ] get liquibase working
+- [ ] UsersService
+- [ ] http/2 support
+- [ ] TLS for security and http/2
+- [ ] add containerize step for openshift
+- [ ] infosys-consumable endpoints (i.e. w/o keycloak auth)
+- [x] fix build system
+- [x] swap out web framework
 
 oh, yeah, this thing lets you save quotes. like bash, but not bash.
 
