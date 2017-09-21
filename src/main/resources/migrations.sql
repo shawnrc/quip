@@ -11,7 +11,7 @@ CREATE TABLE quote (
 CREATE TABLE message (
   id      INT UNSIGNED               NOT NULL AUTO_INCREMENT PRIMARY KEY,
   quoteId INT UNSIGNED               NOT NULL,
-  body    VARCHAR(255)
+  body    TEXT
           CHARACTER SET utf8mb4
           COLLATE utf8mb4_unicode_ci NOT NULL,
   source  INT UNSIGNED               NOT NULL,
