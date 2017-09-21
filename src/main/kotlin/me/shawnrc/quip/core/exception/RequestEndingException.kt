@@ -4,7 +4,7 @@ import javax.ws.rs.WebApplicationException
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
-abstract class NonCatastrophicException(
+abstract class RequestEndingException(
     message: String,
     status: Response.Status) : WebApplicationException(Response.status(status)
         .entity(mapOf(

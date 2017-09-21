@@ -8,7 +8,6 @@ import me.shawnrc.quip.data.QuoteManager
 import me.shawnrc.quip.data.UserManager
 import me.shawnrc.quip.data.dao.MessageDao
 import me.shawnrc.quip.data.dao.QuoteDao
-import me.shawnrc.quip.service.mapper.QuipExceptionMapper
 import org.jdbi.v3.core.Jdbi
 
 fun main(args: Array<String>) {
@@ -40,6 +39,5 @@ class QuipService : Application<QuipConfiguration>() {
 
     environment.jersey().urlPattern = "/api/*"
     environment.jersey().register(quoteResource)
-    environment.jersey().register(QuipExceptionMapper())
   }
 }

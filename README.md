@@ -17,6 +17,7 @@ also naming is hard.
 - [ ] TLS for security and http/2
 - [ ] add containerize step for openshift
 - [ ] infosys-consumable endpoints (i.e. w/o keycloak auth)
+- [ ] get exception logging working the way I want it to
 - [x] fix build system
 - [x] swap out web framework
 

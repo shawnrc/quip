@@ -5,6 +5,7 @@ import me.shawnrc.quip.core.Quote
 import me.shawnrc.quip.core.QuoteCore
 import me.shawnrc.quip.core.QuoteRow
 import me.shawnrc.quip.core.exception.ActionForbiddenException
+import me.shawnrc.quip.core.exception.NotFoundException
 import me.shawnrc.quip.data.dao.MessageDao
 import me.shawnrc.quip.data.dao.QuoteDao
 import org.slf4j.Logger
@@ -37,7 +38,9 @@ class QuoteManager(
   fun getById(id: Int): Quote {
     val shouldBeOneQuote = rowsToQuotes(quoteDao.getById(id))
     if (shouldBeOneQuote.isEmpty()) {
-      throw me.shawnrc.quip.core.exception.NotFoundException("could not find quote for id $id")
+      val error = "could not find quote for id $id"
+      LOG.info(error)
+      throw NotFoundException(error)
     } else if (shouldBeOneQuote.size > 1) {
       LOG.error("invalid state! more than one quote for id $id!")
       throw SQLIntegrityConstraintViolationException()
@@ -48,7 +51,9 @@ class QuoteManager(
   fun delete(id: Int, userId: Int) {
     val quote = getById(id)
     if (quote.createdBy != userId && !userManager.isAdmin(userId)) {
-      throw ActionForbiddenException("user [$userId] cannot delete quote [$id]")
+      val error = "user [$userId] cannot delete quote [$id]"
+      LOG.error(error)
+      throw ActionForbiddenException(error)
     }
     quoteDao.delete(id)
   }
