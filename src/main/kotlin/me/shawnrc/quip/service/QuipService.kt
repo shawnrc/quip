@@ -10,18 +10,15 @@ import me.shawnrc.quip.data.dao.MessageDao
 import me.shawnrc.quip.data.dao.QuoteDao
 import org.jdbi.v3.core.Jdbi
 
-fun main(args: Array<String>) {
-  QuipService().run(*args)
-}
-
 class QuipService : Application<QuipConfiguration>() {
-  override fun getName() = "quip"  // cannot be property - overrides interface method
+  override fun getName() = "quip"  // cannot be property - overrides java interface method
 
   override fun initialize(bootstrap: Bootstrap<QuipConfiguration>) {
     bootstrap.objectMapper.registerModule(KotlinModule())
     super.initialize(bootstrap)
   }
 
+  @Throws(ClassNotFoundException::class)
   override fun run(config: QuipConfiguration, environment: Environment) {
     val jdbi = Jdbi.create(
         "jdbc:mysql://localhost/quip?serverTimezone=UTC",
@@ -39,5 +36,11 @@ class QuipService : Application<QuipConfiguration>() {
 
     environment.jersey().urlPattern = "/api/*"
     environment.jersey().register(quoteResource)
+  }
+
+  companion object {
+    @JvmStatic fun main(args: Array<String>) {
+      QuipService().run(*args)
+    }
   }
 }

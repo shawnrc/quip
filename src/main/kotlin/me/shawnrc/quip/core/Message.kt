@@ -5,5 +5,9 @@ data class Message(
     val source: Int,
     val ordinal: Int,
     val body: String) {
-  constructor(id: Int, ordinal: Int, messageCore: MessageCore) : this(id, messageCore.source, ordinal, messageCore.body)
+  constructor(id: Int, ordinal: Int, messageCore: MessageCore) : this(
+      id = id,
+      source = messageCore.source,
+      ordinal = ordinal,
+      body = messageCore.body)
 }

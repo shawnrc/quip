@@ -22,9 +22,9 @@ class QuoteManager(
     LOG.info("created new quote $newId")
     val messages = quoteCore.messages.mapIndexed {
       index, core -> Message(
-        id = newId,
-        ordinal = index,
-        messageCore = core)
+          id = newId,
+          ordinal = index,
+          messageCore = core)
     }
     messageDao.insert(newId, messages)
     LOG.info("created ${messages.size} new messages for quote $newId")
@@ -36,9 +36,9 @@ class QuoteManager(
   }
 
   fun getById(id: Int): Quote {
-    val shouldBeOneQuote = rowsToQuotes(quoteDao.getById(id))
-    if (shouldBeOneQuote.isEmpty()) {
-      val error = "could not find quote for id $id"
+    val shouldBeOneQuote = rowsToQuotes(quoteDao.getById(id))  // FIXME this is an anti-pattern
+    if (shouldBeOneQuote.isEmpty()) {                          // replace this function with one
+      val error = "could not find quote for id $id"            // that yields a single quote
       LOG.info(error)
       throw NotFoundException(error)
     } else if (shouldBeOneQuote.size > 1) {
@@ -58,6 +58,7 @@ class QuoteManager(
     quoteDao.delete(id)
   }
 
+  // TODO yield single quotes
   private fun rowsToQuotes(quoteRows: List<QuoteRow>): List<Quote> {
     val rowMap = HashMap<Int, Quote>()
     for (row in quoteRows.sortedBy(QuoteRow::ordinal)) {
@@ -79,6 +80,6 @@ class QuoteManager(
 
   companion object {
     @JvmStatic
-    private val LOG: Logger = LoggerFactory.getLogger(this::class.java)
+    private val LOG: Logger = LoggerFactory.getLogger(QuoteManager::class.java)
   }
 }
