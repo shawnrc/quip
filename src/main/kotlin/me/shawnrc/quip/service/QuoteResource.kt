@@ -17,20 +17,14 @@ import javax.ws.rs.core.MediaType
 class QuoteResource(private val quoteManager: QuoteManager) {
   @Consumes(MediaType.APPLICATION_JSON)
   @POST
-  fun create(quoteCore: QuoteCore): Quote {
-    return quoteManager.create(quoteCore, userIdProvider.get())
-  }
+  fun create(quoteCore: QuoteCore): Quote = quoteManager.create(quoteCore, userIdProvider.get())
 
   @GET
-  fun get(): Map<String, List<Quote>> {
-    return mapOf(pair = "quotes" to quoteManager.getAll())
-  }
+  fun get(): Map<String, List<Quote>> = mapOf(pair = "quotes" to quoteManager.getAll())
 
   @GET
   @Path("/{id}")
-  fun get(@PathParam("id") quoteId: Int): Quote {
-    return quoteManager.getById(quoteId)
-  }
+  fun get(@PathParam("id") quoteId: Int): Quote = quoteManager.getById(quoteId)
 
   @DELETE
   @Path("/{id}")
@@ -39,8 +33,6 @@ class QuoteResource(private val quoteManager: QuoteManager) {
   }
 
   private object userIdProvider {
-    fun get(): Int {
-      return 0
-    }
+    fun get() = 0
   }
 }

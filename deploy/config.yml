@@ -4,14 +4,16 @@ server:
     port: 9000
 
 logging:
-  level: DEBUG
+  level: INFO
   loggers:
-    me.shawnrc.quip: DEBUG
+    me.shawnrc.quip: INFO
 
 database:
   driverClass: com.mysql.cj.jdbc.Driver
   url: jdbc:mysql://localhost/Quip
   user: root
   properties:
-    serverTimezone: EDT
-    nullNamePatternMatchesAll: true2
+    serverTimezone: UTC
+    nullNamePatternMatchesAll: true
+    useSSL: false
+

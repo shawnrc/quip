@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset shawnrc:1
+--changeset shawnrc:1 context:job
 CREATE TABLE quote (
   id        INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
   createdBy INT UNSIGNED    NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE quote (
   ROW_FORMAT = COMPRESSED
   KEY_BLOCK_SIZE = 8;
 
---changeset shawnrc:1-1
+--changeset shawnrc:1-1 context:job
 CREATE TABLE message (
   id      INT UNSIGNED               NOT NULL AUTO_INCREMENT PRIMARY KEY,
   quoteId INT UNSIGNED               NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE message (
   ROW_FORMAT = COMPRESSED
   KEY_BLOCK_SIZE = 8;
 
---changeset shawnrc:1-2
+--changeset shawnrc:1-2 context:job
 CREATE TABLE user (
   id     INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   cshUid VARCHAR(255) NOT NULL
@@ -35,7 +35,7 @@ CREATE TABLE user (
   ROW_FORMAT = COMPRESSED
   KEY_BLOCK_SIZE = 8;
 
---changeset shawnrc:1-3
+--changeset shawnrc:1-3 context:job
 CREATE TABLE session (
   accessToken CHAR(32)
               CHARACTER SET ascii

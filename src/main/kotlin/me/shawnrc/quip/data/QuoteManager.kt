@@ -24,7 +24,7 @@ class QuoteManager(
       index, core -> Message(
           id = newId,
           ordinal = index,
-          messageCore = core)
+          messageCore = core.copy(body = core.body.trim()))
     }
     messageDao.insert(newId, messages)
     LOG.info("created ${messages.size} new messages for quote $newId")
@@ -61,21 +61,21 @@ class QuoteManager(
   // TODO yield single quotes
   private fun rowsToQuotes(quoteRows: List<QuoteRow>): List<Quote> {
     val rowMap = HashMap<Int, Quote>()
-    for (row in quoteRows.sortedBy(QuoteRow::ordinal)) {
+    for (row in quoteRows.sortedBy { it.ordinal }) {
       val message = Message(
           id = row.messageId,
           source = row.source,
           ordinal = row.ordinal,
           body = row.body)
       if (row.id !in rowMap) {
-        rowMap.put(row.id, Quote(
+        rowMap[row.id] = Quote(
             id = row.id,
             createdBy = row.createdBy,
-            createdAt = row.createdAt))
+            createdAt = row.createdAt)
       }
       rowMap.getValue(row.id).messages.add(message)
     }
-    return rowMap.values.map { it }
+    return rowMap.values.toList()
   }
 
   companion object {

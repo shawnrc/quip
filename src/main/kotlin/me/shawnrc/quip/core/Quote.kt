@@ -4,4 +4,4 @@ data class Quote(
     val id: Int,
     val createdBy: Int,
     val createdAt: Long,
-    var messages: MutableList<Message> = ArrayList())
+    var messages: MutableList<Message> = ArrayList())  // TODO make this not mutable
