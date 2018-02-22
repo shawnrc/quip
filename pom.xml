@@ -43,7 +43,7 @@
     </dependency>
     <dependency>
       <groupId>org.jdbi</groupId>
-      <artifactId>jdbi3</artifactId>
+      <artifactId>jdbi3-core</artifactId>
       <version>${jdbi.version}</version>
     </dependency>
     <dependency>
@@ -167,8 +167,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <dropwizard.version>1.1.4</dropwizard.version>
-    <jdbi.version>3.0.0-beta2</jdbi.version>
-    <jdbi.kotlin.version>3.0.0-beta3</jdbi.kotlin.version>
+    <jdbi.version>3.0.1</jdbi.version>
+    <jdbi.kotlin.version>3.0.1</jdbi.kotlin.version>
     <kotlin.version>1.2.21</kotlin.version>
 
     <skip.checkstyle>false</skip.checkstyle>

@@ -6,28 +6,19 @@ import me.shawnrc.quip.core.QuoteCore
 import me.shawnrc.quip.core.QuoteRow
 import me.shawnrc.quip.core.exception.ActionForbiddenException
 import me.shawnrc.quip.core.exception.NotFoundException
-import me.shawnrc.quip.data.dao.MessageDao
 import me.shawnrc.quip.data.dao.QuoteDao
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.sql.SQLIntegrityConstraintViolationException
 
 class QuoteManager(
-    private val messageDao: MessageDao,
     private val quoteDao: QuoteDao,
     private val userManager: UserManager) {
 
   fun create(quoteCore: QuoteCore, createdBy: Int): Quote {
-    val newId = quoteDao.create(System.currentTimeMillis(), createdBy)
+    val newId = quoteDao.createFull(quoteCore, System.currentTimeMillis(), createdBy)
     LOG.info("created new quote $newId")
-    val messages = quoteCore.messages.mapIndexed {
-      index, core -> Message(
-          id = newId,
-          ordinal = index,
-          messageCore = core.copy(body = core.body.trim()))
-    }
-    messageDao.insert(newId, messages)
-    LOG.info("created ${messages.size} new messages for quote $newId")
+    LOG.info("created ${quoteCore.messages.size} new messages for quote $newId")
     return getById(newId)
   }
 
@@ -64,16 +55,19 @@ class QuoteManager(
     for (row in quoteRows.sortedBy { it.ordinal }) {
       val message = Message(
           id = row.messageId,
+          quoteId = row.quoteId,
           source = row.source,
           ordinal = row.ordinal,
           body = row.body)
-      if (row.id !in rowMap) {
-        rowMap[row.id] = Quote(
-            id = row.id,
+      if (row.quoteId !in rowMap) {
+        rowMap[row.quoteId] = Quote(
+            id = row.quoteId,
             createdBy = row.createdBy,
-            createdAt = row.createdAt)
+            createdAt = row.createdAt,
+            upvotes = row.upvotes,
+            downvotes = row.downvotes)
       }
-      rowMap.getValue(row.id).messages.add(message)
+      rowMap.getValue(row.quoteId).messages.add(message)
     }
     return rowMap.values.toList()
   }

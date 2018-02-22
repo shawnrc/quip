@@ -4,4 +4,6 @@ data class Quote(
     val id: Int,
     val createdBy: Int,
     val createdAt: Long,
-    var messages: MutableList<Message> = ArrayList())  // TODO make this not mutable
+    val messages: MutableList<Message> = ArrayList(),  // TODO make this not mutable
+    val upvotes: Int,
+    val downvotes: Int)  // TODO convert to score rather than raw votes

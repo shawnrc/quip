@@ -14,13 +14,15 @@ import javax.ws.rs.core.MediaType
 
 @Path("/v1/quotes")
 @Produces(MediaType.APPLICATION_JSON)
-class QuoteResource(private val quoteManager: QuoteManager) {
+class QuoteResource(
+    private val quoteManager: QuoteManager,
+    private val userIdProvider: () -> Int) {
   @Consumes(MediaType.APPLICATION_JSON)
   @POST
-  fun create(quoteCore: QuoteCore): Quote = quoteManager.create(quoteCore, userIdProvider.get())
+  fun create(quoteCore: QuoteCore): Quote = quoteManager.create(quoteCore, userIdProvider())
 
   @GET
-  fun get(): Map<String, List<Quote>> = mapOf(pair = "quotes" to quoteManager.getAll())
+  fun get(): Map<String, List<Quote>> = mapOf("quotes" to quoteManager.getAll())
 
   @GET
   @Path("/{id}")
@@ -29,10 +31,6 @@ class QuoteResource(private val quoteManager: QuoteManager) {
   @DELETE
   @Path("/{id}")
   fun delete(@PathParam("id") quoteId: Int) {
-    quoteManager.delete(quoteId, userIdProvider.get())
-  }
-
-  private object userIdProvider {
-    fun get() = 0
+    quoteManager.delete(quoteId, userIdProvider())
   }
 }
