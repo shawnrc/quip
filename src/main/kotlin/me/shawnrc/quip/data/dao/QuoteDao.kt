@@ -9,6 +9,7 @@ import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
+import org.jdbi.v3.sqlobject.transaction.Transaction
 
 interface QuoteDao {
   private companion object {
@@ -26,6 +27,7 @@ interface QuoteDao {
   @CreateSqlObject
   fun getVoteDao(): VoteDao
 
+  @Transaction
   fun createFull(quoteCore: QuoteCore, createdAt: Long, createdBy: Int): Int {
     val newQuoteId = create(createdAt, createdBy)
     val messageEggs = quoteCore.messages.mapIndexed { index, core ->
