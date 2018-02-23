@@ -37,9 +37,9 @@
       <version>${dropwizard.version}</version>
     </dependency>
     <dependency>
-      <groupId>io.dropwizard</groupId>
-      <artifactId>dropwizard-migrations</artifactId>
-      <version>${dropwizard.version}</version>
+      <groupId>io.dropwizard.modules</groupId>
+      <artifactId>dropwizard-flyway</artifactId>
+      <version>1.2.0-1</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>

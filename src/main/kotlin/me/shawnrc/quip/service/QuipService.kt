@@ -2,8 +2,9 @@ package me.shawnrc.quip.service
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.dropwizard.Application
+import io.dropwizard.flyway.FlywayBundle
 import io.dropwizard.jdbi3.JdbiFactory
-import io.dropwizard.migrations.MigrationsBundle
+import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
 import me.shawnrc.quip.data.QuoteManager
@@ -24,10 +25,10 @@ class QuipService : Application<QuipConfiguration>() {
   override fun getName() = "quip"  // cannot be property - overrides java interface method
 
   override fun initialize(bootstrap: Bootstrap<QuipConfiguration>) {
-    bootstrap.addBundle(object : MigrationsBundle<QuipConfiguration>() {
+    bootstrap.addBundle(object : FlywayBundle<QuipConfiguration>() {
       override fun getDataSourceFactory(config: QuipConfiguration) = config.getDataSourceFactory()
-      override fun getMigrationsFileName() = "migrations.sql"
     })
+    bootstrap.addBundle(JdbiExceptionsBundle())
 
     bootstrap.objectMapper.registerModule(KotlinModule())
     super.initialize(bootstrap)
