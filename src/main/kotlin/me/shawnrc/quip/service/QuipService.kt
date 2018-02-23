@@ -2,6 +2,7 @@ package me.shawnrc.quip.service
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.dropwizard.Application
+import io.dropwizard.jdbi3.JdbiFactory
 import io.dropwizard.migrations.MigrationsBundle
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
@@ -10,7 +11,6 @@ import me.shawnrc.quip.data.UserManager
 import me.shawnrc.quip.data.VoteManager
 import me.shawnrc.quip.data.dao.QuoteDao
 import me.shawnrc.quip.data.dao.VoteDao
-import org.jdbi.v3.core.Jdbi
 
 class QuipService : Application<QuipConfiguration>() {
   companion object {
@@ -35,14 +35,10 @@ class QuipService : Application<QuipConfiguration>() {
 
   @Throws(ClassNotFoundException::class)
   override fun run(config: QuipConfiguration, environment: Environment) {
-    val jdbi = Jdbi.create(
-        "jdbc:mysql://localhost/quip?serverTimezone=UTC",  // TODO config file
-        "root",
-        "")
+    val jdbi = JdbiFactory().build(environment, config.getDataSourceFactory(), "mysql")
     jdbi.installPlugins()
 
     val quoteDao = jdbi.onDemand(QuoteDao::class.java)  // TODO DAO injection/binding
-//    val messageDao = jdbi.onDemand(MessageDao::class.java)
     val voteDao = jdbi.onDemand(VoteDao::class.java)
 
     val userManager = UserManager()
