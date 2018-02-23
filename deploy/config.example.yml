@@ -1,7 +1,12 @@
 server:
   applicationConnectors:
   - type: http
-    port: 9000
+    port: 80
+  adminConnectors:
+    - type: http
+      port: 8081
+    - type: https
+      port: 8444
 
 logging:
   level: INFO
@@ -11,9 +16,8 @@ logging:
 database:
   driverClass: com.mysql.cj.jdbc.Driver
   url: jdbc:mysql://localhost/Quip
-  user: root
+  user: quip
   properties:
     serverTimezone: UTC
     nullNamePatternMatchesAll: true
     useSSL: false
-

@@ -64,3 +64,6 @@ hs_err_pid*
 ### Maven
 dependency-reduced-pom.xml
 target/
+
+### Quip
+deploy/config.yml
