@@ -54,6 +54,7 @@ class QuipService : Application<QuipConfiguration>() {
       urlPattern = URL_PATTERN
       register(quoteResource)
       register(voteResource)
+      register(DummyAuthResource())
     }
   }
 }
