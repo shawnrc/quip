@@ -13,7 +13,7 @@ logging:
 
 database:
   driverClass: org.h2.Driver
-  url: jdbc:h2:./persondb;MODE=MySQL
+  url: jdbc:h2:mem;MODE=MySQL
   user: sa
   properties:
     serverTimezone: UTC
