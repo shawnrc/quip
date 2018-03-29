@@ -12,9 +12,9 @@ logging:
     me.shawnrc.quip: INFO
 
 database:
-  driverClass: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://localhost/Quip
-  user: quip
+  driverClass: org.h2.Driver
+  url: jdbc:h2:./persondb;MODE=MySQL
+  user: sa
   properties:
     serverTimezone: UTC
     nullNamePatternMatchesAll: true

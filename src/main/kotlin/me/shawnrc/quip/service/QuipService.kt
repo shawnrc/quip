@@ -12,7 +12,6 @@ import me.shawnrc.quip.data.UserManager
 import me.shawnrc.quip.data.VoteManager
 import me.shawnrc.quip.data.dao.QuoteDao
 import me.shawnrc.quip.data.dao.VoteDao
-import kotlin.concurrent.thread
 
 class QuipService : Application<QuipConfiguration>() {
   companion object {
