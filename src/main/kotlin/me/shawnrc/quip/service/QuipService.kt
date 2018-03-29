@@ -12,6 +12,7 @@ import me.shawnrc.quip.data.UserManager
 import me.shawnrc.quip.data.VoteManager
 import me.shawnrc.quip.data.dao.QuoteDao
 import me.shawnrc.quip.data.dao.VoteDao
+import kotlin.concurrent.thread
 
 class QuipService : Application<QuipConfiguration>() {
   companion object {
@@ -55,5 +56,49 @@ class QuipService : Application<QuipConfiguration>() {
       register(quoteResource)
       register(voteResource)
     }
+  }
+}
+enum class Days { TODAY }
+enum class Rooms { LINZ }
+
+fun join(who: String, time: Days, where: Rooms, talks: List<String>) {}
+
+fun penis() {
+  join(
+      who   = "jonnyzzz",
+      time  = Days.TODAY,
+      where = Rooms.LINZ,
+      talks = listOf("DSLs", "Live Coding", "IntelliJ IDEA"))
+}
+
+interface Node{
+  fun attr(string: String): String
+}
+interface Matcher {
+  fun find(): Boolean
+  fun group(by: String): String
+}
+interface Pattern {
+  fun matcher(pattern: String): Matcher
+}
+
+class Butts(val childNodes: List<Node>,
+            val yearPattern: Pattern) {
+
+  fun getYear(): String? {
+    for (node in childNodes) {
+      val matcher = yearPattern.matcher(node.attr("href").trim())
+      if (matcher.find()) {
+        return matcher.group("year")
+      }
+    }
+    return null
+  }
+
+  fun getYearOther(): String? {
+    return childNodes.asSequence()
+        .map { yearPattern.matcher(it.attr("href").trim()) }
+        .firstOrNull { it.find() }
+        ?.group("year")
   }
 }

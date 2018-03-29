@@ -67,3 +67,5 @@ target/
 
 ### Quip
 deploy/config.yml
+*.db
+

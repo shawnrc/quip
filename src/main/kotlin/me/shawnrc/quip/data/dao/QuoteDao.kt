@@ -16,8 +16,8 @@ interface QuoteDao {
     const val SELECT_PREFIX = """
         SELECT quote.id AS quoteId, message.id AS messageId, quote.createdBy,
             message.ordinal, message.source, quote.createdAt, message.body,
-            (SELECT COUNT(*) FROM vote WHERE  vote.direction = "UP" AND vote.quoteId = quote.id) AS upvotes,
-            (SELECT COUNT(*) FROM vote WHERE vote.direction = "DOWN" AND vote.quoteId = quote.id) AS downvotes
+            (SELECT COUNT(*) FROM vote WHERE vote.direction = 'UP' AND vote.quoteId = quote.id) AS upvotes,
+            (SELECT COUNT(*) FROM vote WHERE vote.direction = 'DOWN' AND vote.quoteId = quote.id) AS downvotes
         FROM quote JOIN message ON message.quoteId = quote.id """
   }
 

@@ -15,6 +15,11 @@ class QuoteManager(
     private val quoteDao: QuoteDao,
     private val userManager: UserManager) {
 
+  companion object {
+    @JvmStatic
+    private val LOG: Logger = LoggerFactory.getLogger(QuoteManager::class.java)
+  }
+
   fun create(quoteCore: QuoteCore, createdBy: Int): Quote {
     val newId = quoteDao.createFull(quoteCore, System.currentTimeMillis(), createdBy)
     LOG.info("created new quote $newId")
@@ -70,10 +75,5 @@ class QuoteManager(
       rowMap.getValue(row.quoteId).messages.add(message)
     }
     return rowMap.values.toList()
-  }
-
-  companion object {
-    @JvmStatic
-    private val LOG: Logger = LoggerFactory.getLogger(QuoteManager::class.java)
   }
 }

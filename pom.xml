@@ -22,6 +22,11 @@
       <version>2.9.4</version>
     </dependency>
     <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.197</version>
+    </dependency>
+    <dependency>
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-core</artifactId>
       <version>${dropwizard.version}</version>
@@ -174,7 +179,7 @@
     <dropwizard.experimental.version>1.3.0-rc6</dropwizard.experimental.version>
     <jdbi.version>3.0.1</jdbi.version>
     <jdbi.kotlin.version>3.0.1</jdbi.kotlin.version>
-    <kotlin.version>1.2.21</kotlin.version>
+    <kotlin.version>1.2.31</kotlin.version>
 
     <skip.checkstyle>false</skip.checkstyle>
   </properties>

@@ -1,5 +1,6 @@
 package me.shawnrc.quip.service
 
+import com.codahale.metrics.annotation.Timed
 import me.shawnrc.quip.core.Quote
 import me.shawnrc.quip.core.QuoteCore
 import me.shawnrc.quip.data.QuoteManager
@@ -17,13 +18,16 @@ import javax.ws.rs.core.MediaType
 class QuoteResource(
     private val quoteManager: QuoteManager,
     private val userIdProvider: () -> Int) {
+  @Timed
   @Consumes(MediaType.APPLICATION_JSON)
   @POST
   fun create(quoteCore: QuoteCore): Quote = quoteManager.create(quoteCore, userIdProvider())
 
+  @Timed
   @GET
   fun get(): Map<String, List<Quote>> = mapOf("quotes" to quoteManager.getAll())
 
+  @Timed
   @GET
   @Path("/{id}")
   fun get(@PathParam("id") quoteId: Int): Quote = quoteManager.getById(quoteId)
