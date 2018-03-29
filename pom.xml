@@ -126,7 +126,7 @@
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
-          <finalName>app.jar</finalName>
+          <finalName>app</finalName>
           <createDependencyReducedPom>true</createDependencyReducedPom>
           <filters>
             <filter>
